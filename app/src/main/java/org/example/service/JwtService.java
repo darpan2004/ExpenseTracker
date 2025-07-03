@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -32,6 +33,10 @@ public class JwtService {
     }
     private Boolean isTokenExpired(String token) {
         return extractExpirations(token).before(new Date());
+    }
+    public String GenerateToken(String username){
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, username);
     }
     public Boolean validateToken(String token , UserDetails userDetails) {
         final String userName=extractUsername(token);
